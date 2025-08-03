@@ -11,8 +11,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 
-
-
 class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private lateinit var channel: MethodChannel
@@ -38,7 +36,7 @@ class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
     }
 
 
-    override fun onMethodCall(call: MethodCall, result: Result): Unit {
+    override fun onMethodCall(call: MethodCall, result: Result) {
         if (call.method.equals("jailbroken")) {
             val rootBeer = RootBeer(context)
             result.success(rootBeer.isRooted)
