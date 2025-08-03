@@ -26,16 +26,13 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 36
+    compileSdk 35
     namespace "appmire.be.flutterjailbreakdetectionexample"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -44,18 +41,10 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "appmire.be.flutterjailbreakdetectionexample"
         minSdk 21
-        targetSdkVersion 34
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        externalNativeBuild {
-            // For ndk-build, instead use the ndkBuild block.
-            cmake {
-                // Passes optional arguments to CMake.
-                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
-            }
-        }
     }
 
     buildTypes {
@@ -65,10 +54,13 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    lint {
+        disable 'InvalidPackage'
+    }
+    ndkVersion '27.0.12077973'
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
     }
-    ndkVersion '27.0.12077973'
 }
 
 flutter {

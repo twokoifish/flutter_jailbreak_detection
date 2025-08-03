@@ -11,6 +11,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 
+
+
 class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private lateinit var channel: MethodChannel
@@ -27,10 +29,6 @@ class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun isJailbroken(): Boolean {
-        val rootBeer = RootBeer(context)
-        return rootBeer.isRooted
-    }
 
     private fun isDevMode(): Boolean {
         return Settings.Secure.getInt(
@@ -39,17 +37,17 @@ class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
         ) != 0
     }
 
-    override fun onMethodCall(call: MethodCall, result: Result) {
-        when(call.method) {
-            "jailbroken" -> {
-                result.success(isJailbroken())
-            }
-            "developerMode" -> {
-                result.success(isDevMode())
-            }
-            else -> {
-                result.notImplemented()
-            }
+
+    override fun onMethodCall(call: MethodCall, result: Result): Unit {
+        if (call.method.equals("jailbroken")) {
+            val rootBeer = RootBeer(context)
+            result.success(rootBeer.isRooted)
+        } else if (call.method.equals("developerMode")) {
+            result.success(isDevMode())
+        } else {
+            result.notImplemented()
         }
     }
+
+
 }
