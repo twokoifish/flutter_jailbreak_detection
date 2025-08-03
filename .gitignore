@@ -31,3 +31,6 @@ build/
 hs_err_pid*
 
 example/.flutter-plugins-dependencies
+
+# FVM Version Cache
+.fvm/
